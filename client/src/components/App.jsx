@@ -9,8 +9,8 @@ function App() {
 
   return (
     <div>
-      <h1>Creadible</h1>
-      <h3>Creating edible yummy dishes with the ingredients you already have!</h3>
+      <h1 id="banner">CREADIBLE</h1>
+      <h3 id="slogan">creating edible yummy dishes with the ingredients you already have</h3>
       <Ingredients />
       <FeaturedDishes />
       <WinePairing />

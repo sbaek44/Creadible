@@ -54,13 +54,10 @@ function Ingredients(props) {
   if (recipes.length === 0) {
     return (
       <div>
-        <h5>Type in your ingredients below and see all the Creadible dishes you can make!</h5>
+        <h4 id="typeIn">Type in your ingredients below and see all the Creadible dishes you can make!</h4>
         <form onSubmit={submitIngredients}>
-          <label>
-            Ingredients on hand: <br />
             <textarea onChange={handleChange} value={ingredients} type="text" name="ingredients" placeholder="chicken, lemon"></textarea>
-          </label>
-          <button type="submit">Get Recipes</button>
+          <button id="ingredientButton" type="submit">Get Recipes</button>
         </form>
       </div>
     )
@@ -87,14 +84,14 @@ function Ingredients(props) {
   } else {
     return (
       <div>
-        <h4>Recipes using {ingredients}:</h4>
+        <h4 id="ingredients">Recipes using {ingredients}:</h4>
+        <button onClick={backToIngredients}>Use Different Ingredients</button>
         {recipes.map((recipe, i) => (
           <div key={i}>
-            <h4 onClick={() => (onRecipeClick(recipe.id))}>{recipe.title}</h4>
+            <h4 id="ingredientRecipe" onClick={() => (onRecipeClick(recipe.id))}>{recipe.title}</h4>
             <img onClick={() => (onRecipeClick(recipe.id))} src={recipe.image} />
           </div>
         ))}
-        <button onClick={backToIngredients}>Use Different Ingredients</button>
       </div>
     )
   }

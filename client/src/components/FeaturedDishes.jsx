@@ -49,12 +49,14 @@ function FeaturedDishes(props) {
   } else {
     return (
       <div>
-      {console.log(featuredRecipes)}
-        <h4>Featured Recipes</h4>
+        <h5 id="featuredTitle">Featured Recipes</h5>
         <div id="featuredRecipes" style={{display: 'flex', flexDirection: 'row'}}>
           {featuredRecipes.map((recipe, i) => (
-            <div key={i}>{recipe.title} <br/>
-            <img src={recipe.image} /></div>
+            <div key={i}>
+              <h4 id="featuredDish">{recipe.title}</h4>
+              <br/>
+              <img id="featuredImg" src={recipe.image} />
+            </div>
           ))}
         </div>
       </div>
