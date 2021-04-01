@@ -11,10 +11,26 @@ function WinePairing(props) {
     <div>
       <h4 id="winePairingTitle">Wine Pairing</h4>
       <div style={{display: 'flex', flexDirection: 'row'}}>
-        <h4 id="winePairingProtein">Burgers</h4><br/>
-        <img id="winePairingImg" src={'https://www.thereciperebel.com/wp-content/uploads/2016/05/best-burgers-www.thereciperebel.com-600-11-of-16-500x500.jpg'} />
-        <h4 id="winePairingProtein">Seafood</h4><br/>
-        <img src={''} />
+        <div>
+          <h4 id="winePairingProtein">Steak</h4>
+          <br />
+          <img id="winePairingImg" src={"https://spoonacular.com/recipeImages/196451-556x370.jpg"} />
+        </div>
+        <div>
+        <h4 id="winePairingProtein">Seafood</h4>
+        <br/>
+        <img id="winePairingImg" src={'https://spoonacular.com/recipeImages/975515-556x370.jpg'} />
+        </div>
+        <div>
+        <h4 id="winePairingProtein">Pasta</h4>
+        <br/>
+        <img id="winePairingImg" src={'https://spoonacular.com/recipeImages/1003936-556x370.jpg'} />
+        </div>
+        <div>
+        <h4 id="winePairingProtein">Dessert</h4>
+        <br />
+        <img id="winePairingImg" src={'https://webknox.com/recipeImages/639057-556x370.jpg'} />
+        </div>
       </div>
     </div>
   )
