@@ -2,18 +2,19 @@ import React, { useState, useEffect } from 'react'
 import axios from 'axios'
 import token from '../../../config.js'
 
-function Ingredients(props) {
+function Ingredients({ addToCookbook }) {
   const [ingredients, updateIngredients] = useState([])
   const [recipes, updateRecipes] = useState([])
-  const [selectedRecipe, updateSelectedRecipe] = useState([])
+  const [selectedRecipeFromIngredients, updateSelectedRecipeFromIngredients] = useState([])
+
+  useEffect(() => {
+    console.log(selectedRecipeFromIngredients)
+  }, [selectedRecipeFromIngredients])
 
   const handleChange = (e) => {
     updateIngredients(e.target.value)
   }
 
-  const backToRecipes = () => {
-    updateSelectedRecipe([])
-  }
   const backToIngredients = () => {
     updateRecipes([])
   }
@@ -47,7 +48,7 @@ function Ingredients(props) {
         'x-rapidapi-host': 'spoonacular-recipe-food-nutrition-v1.p.rapidapi.com'
       }
     })
-    .then((results) => (updateSelectedRecipe(results.data)))
+    .then((results) => (updateSelectedRecipeFromIngredients([results.data])))
     .catch((err) => (console.log(err)))
   }
 
@@ -61,24 +62,25 @@ function Ingredients(props) {
         </form>
       </div>
     )
-  } else if (selectedRecipe.id) {
+  } else if (selectedRecipeFromIngredients.length > 0) {
     return (
       <div>
-        <h3>{selectedRecipe.title}</h3>
-        <img src={selectedRecipe.image} />
-        <h4>Ready in {selectedRecipe.readyInMinutes} minutes</h4>
-        <h4>Serves {selectedRecipe.servings}</h4>
+        <h3>{selectedRecipeFromIngredients[0].title}</h3>
+        <img src={selectedRecipeFromIngredients[0].image} />
+        <h4>Ready in {selectedRecipeFromIngredients[0].readyInMinutes} minutes</h4>
+        <h4>Serves {selectedRecipeFromIngredients[0].servings}</h4>
         <h4>Ingredients</h4>
         <ul>
-          {selectedRecipe.extendedIngredients.map((item, i) => (
+          {selectedRecipeFromIngredients[0].extendedIngredients.map((item, i) => (
             <li key={i}>{item.name}</li>
           ))}
         </ul>
         <h4>Directions</h4>
-          {selectedRecipe.analyzedInstructions.length === 0 || selectedRecipe.analyzedInstructions === undefined ? <p>{selectedRecipe.summary}</p> : selectedRecipe.analyzedInstructions[0].steps.map((item, i) => (
+          {selectedRecipeFromIngredients[0].analyzedInstructions.length === 0 || selectedRecipeFromIngredients[0].analyzedInstructions === undefined ? <p>{selectedRecipeFromIngredients[0].summary}</p> : selectedRecipeFromIngredients[0].analyzedInstructions[0].steps.map((item, i) => (
             <p id="steps" key={i}>Step {item.number}: {item.step}</p>
           ))}
-          <button onClick={backToRecipes}>Back To Recipes List</button>
+          <button onClick={() => (updateSelectedRecipeFromIngredients([]))}>Back</button>
+          <button onClick={() => (addToCookbook(selectedRecipeFromIngredients[0].id))}>Add To My Cookbook</button>
       </div>
     )
   } else {

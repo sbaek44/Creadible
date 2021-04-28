@@ -11,7 +11,7 @@ button {
   background-color: white;
 }
 
-#banner {
+#banner-title {
   display: inline;
   margin-left: 20px;
   font-size: 60px;
@@ -41,7 +41,7 @@ textarea, #ingredientButton {
   vertical-align: bottom;
 }
 
-#featuredTitle, #winePairingTitle {
+#cookbookTitle, #featuredTitle, #winePairingTitle {
   font-size: x-large;
   margin-top: 80px;
   margin-bottom: 0px;

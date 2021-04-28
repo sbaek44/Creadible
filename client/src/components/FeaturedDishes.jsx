@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react'
 import axios from 'axios'
 import token from '../../../config.js'
 
-function FeaturedDishes(props) {
+function FeaturedDishes({ updateSelectedRecipe }) {
   const [featuredRecipes, updateFeaturedRecipes] = useState([])
 
   useEffect(() => {
@@ -21,27 +21,30 @@ function FeaturedDishes(props) {
       } else {
         if (now-setupTime > hours*60*60*1000) {
           localStorage.clear()
-          localStorage.setItem('setupTime', now)
         }
       }
     }
   }, [featuredRecipes])
 
-  const options = {
-    method: 'GET',
-    url: 'https://spoonacular-recipe-food-nutrition-v1.p.rapidapi.com/recipes/random',
-    params: {number: 4},
-    headers: {
-      'x-rapidapi-key': token,
-      'x-rapidapi-host': 'spoonacular-recipe-food-nutrition-v1.p.rapidapi.com'
-    }
-  }
-
   const getFeaturedRecipes = () => {
-    axios.request(options)
+    axios.request({
+      method: 'GET',
+      url: 'https://spoonacular-recipe-food-nutrition-v1.p.rapidapi.com/recipes/random',
+      params: {number: 4},
+      headers: {
+        'x-rapidapi-key': token,
+        'x-rapidapi-host': 'spoonacular-recipe-food-nutrition-v1.p.rapidapi.com'
+      }
+    })
     .then((results) => (updateFeaturedRecipes(results.data.recipes)))
     .catch((err) => (console.log(err)))
   }
+
+  const onFeaturedClick = (id) => {
+    let recipe = featuredRecipes.filter((recipe) => (recipe.id === id))
+    updateSelectedRecipe(recipe)
+  }
+
   if (featuredRecipes.length === 0) {
     return (
       <h4>Featured Recipes</h4>
@@ -49,10 +52,10 @@ function FeaturedDishes(props) {
   } else {
     return (
       <div>
-        <h5 id="featuredTitle">Featured Recipes</h5>
+        <h4 id="featuredTitle">Featured Recipes</h4>
         <div id="featuredRecipes" style={{display: 'flex', flexDirection: 'row'}}>
           {featuredRecipes.map((recipe, i) => (
-            <div key={i}>
+            <div onClick={() => (onFeaturedClick(recipe.id))} key={i}>
               <h4 id="featuredDish">{recipe.title}</h4>
               <br/>
               <img id="featuredImg" src={recipe.image} />
